@@ -1019,12 +1019,8 @@
                 const text = await response.text();
                 hotels = parseHotelsData(text);
                 
-                // Sort hotels with Paakashala at the end
-                hotels.sort((a, b) => {
-                    if (a.name === 'Paakashala') return 1;
-                    if (b.name === 'Paakashala') return -1;
-                    return a.name.localeCompare(b.name);
-                });
+                // Sort hotels alphabetically by name
+                hotels.sort((a, b) => a.name.localeCompare(b.name));
                 
                 filteredHotels = [...hotels];
                 renderHotels();
@@ -1394,10 +1390,6 @@
             
             // Sort hotels
             filteredHotels.sort((a, b) => {
-                // Always put Paakashala at the end
-                if (a.name === 'Paakashala') return 1;
-                if (b.name === 'Paakashala') return -1;
-                
                 switch (sortBy) {
                     case 'distance':
                         const distanceA = parseFloat(a.distance.match(/(\d+(?:\.\d+)?)/)?.[1] || 0);
