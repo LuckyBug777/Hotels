@@ -1043,7 +1043,7 @@
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i].trim();
                 
-                if (line.includes('(') && (line.includes('km from temple') || line.includes('km from Temple')) && line.includes(')')) {
+                if (line.includes('(') && (line.includes('km from temple') || line.includes('km from Temple') || line.includes('Km from temple') || line.includes('Km from Temple')) && line.includes(')')) {
                     // New hotel detected
                     if (currentHotel) {
                         hotels.push(currentHotel);
