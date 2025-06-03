@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotels Near Temple - Accommodation Guide</title>
+    <meta name="description" content="Find the best hotels and lodges near the temple with complete tariff details, photos, and contact information.">
+    <meta name="keywords" content="hotels near temple, accommodation, lodges, tariff, booking">
+    
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary-color: #ff6b35;
+            --secondary-color: #f7931e;
+            --accent-color: #2c5530;
+            --text-color: #333;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+            padding: 1.5rem 0 1rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="temple" patternUnits="userSpaceOnUse" width="20" height="20"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23temple)"/></svg>');
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Temple Photos Carousel */
+        .temple-carousel {
+            margin: 0.5rem auto 0.8rem auto;
+            max-width: 100%;
+            width: 95%;
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            height: 850px;
+            background: #f0f0f0;
+        }
+
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #f0f0f0;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            border-radius: var(--border-radius);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--white);
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: var(--transition);
+            border-radius: 0 5px 5px 0;
+        }
+
+        .carousel-nav:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .carousel-nav.prev {
+            left: 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .carousel-nav.next {
+            right: 0;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .indicator.active {
+            background: var(--white);
+        }
+
+        /* Search and Filter Section */
+        .search-section {
+            background: var(--white);
+            padding: 1rem;
+            margin: 0.3rem auto;
+            max-width: 1200px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .search-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.6rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .search-input, .filter-select {
+            padding: 0.65rem 1rem;
+            border: 2px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--white);
+        }
+
+        .search-input:focus, .filter-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+        }
+
+        .results-count {
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+            padding: 0.2rem;
+        }
+
+        /* Hotels Grid */
+        .hotels-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .hotels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1rem;
+            margin: 0.3rem 0;
+        }
+
+        /* Hotel Card */
+        .hotel-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            height: fit-content;
+        }
+
+        .hotel-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .hotel-header {
+            margin-bottom: 0.6rem;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 0.6rem;
+        }
+
+        .hotel-name {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .hotel-distance {
+            background: linear-gradient(45deg, var(--accent-color), #3a6b3f);
+            color: var(--white);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+
+        .hotel-address {
+            color: #666;
+            margin-bottom: 0.4rem;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .hotel-location {
+            display: inline-block;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            transition: var(--transition);
+            font-size: 0.8rem;
+        }
+
+        .hotel-location:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Tariff Table */
+        .tariff-section {
+            margin: 0.6rem 0;
+        }
+
+        .tariff-title {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            margin-bottom: 0.4rem;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.1rem;
+            font-weight: 600;
+        }
+
+        .tariff-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 0.6rem;
+            font-size: 0.8rem;
+        }
+
+        .tariff-table th,
+        .tariff-table td {
+            padding: 0.5rem 0.6rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .tariff-table th {
+            background: var(--light-bg);
+            font-weight: 600;
+            color: var(--accent-color);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tariff-table tr:hover {
+            background: var(--light-bg);
+        }
+
+        .tariff-table td:last-child {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            margin: 0.8rem 0;
+            padding: 0.8rem;
+            background: var(--light-bg);
+            border-radius: var(--border-radius);
+        }
+
+        .contact-title {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .contact-numbers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .contact-number {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.3rem 0.6rem;
+            background: var(--white);
+            border-radius: 20px;
+            transition: var(--transition);
+            border: 2px solid var(--primary-color);
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .contact-number:before {
+            content: "📞";
+        }
+
+        .contact-number:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-1px);
+        }
+
+        /* Action Buttons */
+        .hotel-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.6rem;
+        }
+
+        .btn {
+            padding: 0.5rem 0.8rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 500;
+            flex: 1;
+            gap: 0.25rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(45deg, var(--secondary-color), var(--primary-color));
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-1px);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .modal-header {
+            padding: 1rem 2rem;
+            background: var(--primary-color);
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            opacity: 0.7;
+        }
+
+        .modal-body {
+            padding: 2rem;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .photo-item {
+            position: relative;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .photo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            object-position: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .photo-item img[style*="opacity: 1"] {
+            opacity: 1;
+        }
+
+        /* Loading and Error States */
+        .loading {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .loading:before {
+            content: "🏨";
+            display: block;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .error {
+            text-align: center;
+            padding: 2rem;
+            color: #e74c3c;
+            background: #ffeaea;
+            border-radius: var(--border-radius);
+            margin: 1rem 0;
+            border: 1px solid #ffcccb;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .no-results:before {
+            content: "🔍";
+            display: block;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header {
+                padding: 1rem 0 0.8rem 0;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .header p {
+                font-size: 1rem;
+            }
+
+            .temple-carousel {
+                margin: 0.5rem auto 0.6rem auto;
+                width: 98%;
+                height: 730px;
+            }
+
+            .search-section {
+                margin: 0.4rem;
+                padding: 0.8rem;
+            }
+
+            .search-controls {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .hotels-container {
+                padding: 0 0.5rem;
+            }
+
+            .hotels-grid {
+                grid-template-columns: 1fr;
+                gap: 0.6rem;
+                margin: 0.2rem 0;
+            }
+
+            .hotel-card {
+                padding: 0.8rem;
+            }
+
+            .hotel-name {
+                font-size: 1.1rem;
+            }
+
+            .contact-numbers {
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+
+            .hotel-actions {
+                flex-direction: column;
+                gap: 0.4rem;
+            }
+
+            .modal-content {
+                max-width: 95%;
+                max-height: 90%;
+                margin: 1rem;
+            }
+
+            .modal-header {
+                padding: 1rem;
+            }
+
+            .modal-body {
+                padding: 1rem;
+            }
+
+            .photo-gallery {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 0.8rem;
+            }
+            
+            .photo-item img {
+                height: 150px;
+            }
+
+            .carousel-nav {
+                padding: 0.8rem;
+                font-size: 1.2rem;
+            }
+            
+            .carousel-indicators {
+                bottom: 0.5rem;
+            }
+            
+            .indicator {
+                width: 10px;
+                height: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .temple-carousel {
+                height: 670px;
+                margin: 0.4rem auto 0.5rem auto;
+            }
+            
+            .hotel-card {
+                padding: 0.6rem;
+            }
+            
+            .tariff-table th,
+            .tariff-table td {
+                padding: 0.3rem 0.4rem;
+                font-size: 0.75rem;
+            }
+            
+            .btn {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            
+            .contact-number {
+                padding: 0.25rem 0.4rem;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (min-width: 1400px) {
+            .hotels-grid {
+                grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+                gap: 1rem;
+            }
+            
+            .temple-carousel {
+                max-width: 1000px;
+                height: 900px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .header,
+            .search-section,
+            .hotel-actions,
+            .modal {
+                display: none;
+            }
+
+            .hotel-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
+                margin-bottom: 2rem;
+            }
+
+            .hotels-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="header-content">
+            <h1>Hotels Near Temple</h1>
+            <p>Find the perfect accommodation for your spiritual journey</p>
+            
+            <!-- Temple Photos Carousel -->
+            <div class="temple-carousel">
+                <div class="carousel-container" id="templeCarousel">
+                    <!-- Temple photos will be loaded here -->
+                </div>
+                <button class="carousel-nav prev" onclick="changeSlide(-1)">❮</button>
+                <button class="carousel-nav next" onclick="changeSlide(1)">❯</button>
+                <div class="carousel-indicators" id="carouselIndicators">
+                    <!-- Indicators will be generated here -->
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search and Filter Section -->
+    <section class="search-section">
+        <div class="search-controls">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search hotels by name or location...">
+            <select id="distanceFilter" class="filter-select">
+                <option value="">All Distances</option>
+                <option value="3">Within 3km</option>
+                <option value="4">Within 4km</option>
+                <option value="5">Within 5km</option>
+            </select>
+            <select id="sortBy" class="filter-select">
+                <option value="name">Sort by Name</option>
+                <option value="distance">Sort by Distance</option>
+                <option value="price">Sort by Price</option>
+            </select>
+        </div>
+        <div id="resultsCount" class="results-count"></div>
+    </section>
+
+    <!-- Hotels Container -->
+    <main class="hotels-container">
+        <div id="loadingMessage" class="loading pulse">
+            Loading hotel information...
+        </div>
+        <div id="hotelsGrid" class="hotels-grid">
+            <!-- Hotel cards will be generated here -->
+        </div>
+        <div id="noResults" class="no-results" style="display: none;">
+            No hotels found matching your criteria.
+        </div>
+    </main>
+
+    <!-- Photo Modal -->
+    <div id="photoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Hotel Photos</h3>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="photoGallery" class="photo-gallery">
+                    <!-- Photos will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let hotels = [];
+        let filteredHotels = [];
+        let currentSlide = 0;
+        let templePhotos = ['temple1.jpeg', 'temple2.jpeg', 'swamiji1.jpeg', 'swamiji2.jpeg', 'swamiji3.jpeg'];
+
+        // Hotel data mapping for photo folders
+        const hotelPhotoMapping = {
+            'Gayathri Comforts': 'Gayathri-Comforts',
+            'Shri Krishna lodge': 'Shri-Krishna-lodge',
+            'Vishwas Lodge': 'Vishwas Lodge',
+            'Paakashala': 'Paakashala',
+            'Guru Kripa Lodge': 'Guru-Kripa-Lodge',
+            'White House Inn': 'White-House-Inn',
+            'Samudyatha Inn & Suites': 'Samudyatha-Inn',
+            'Shivaprasad Grand': 'Shivaprasad-Grand',
+            'Shreyas Inn': 'Shreyas-Inn',
+            'JK Towers': 'JK-Towers',
+            'Hotel Sharon': 'Hotel-Sharon',
+            'Nagu Palace': 'Nagu-Palace'
+        };
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCarousel();
+            loadHotelsData();
+            setupEventListeners();
+        });
+
+        // Initialize temple photos carousel
+        function initializeCarousel() {
+            const carousel = document.getElementById('templeCarousel');
+            const indicators = document.getElementById('carouselIndicators');
+            
+            // Load temple photos
+            templePhotos.forEach((photo, index) => {
+                // Create slide
+                const slide = document.createElement('div');
+                slide.className = `carousel-slide ${index === 0 ? 'active' : ''}`;
+                
+                const img = document.createElement('img');
+                img.src = `temple-photos/${photo}`;
+                img.alt = `Temple Photo ${index + 1}`;
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                img.style.display = 'block';
+                
+                img.onerror = function() {
+                    console.log(`Failed to load image: temple-photos/${photo}`);
+                    this.style.display = 'none';
+                };
+                
+                img.onload = function() {
+                    console.log(`Successfully loaded: temple-photos/${photo}`);
+                };
+                
+                slide.appendChild(img);
+                carousel.appendChild(slide);
+                
+                // Create indicator
+                const indicator = document.createElement('div');
+                indicator.className = `indicator ${index === 0 ? 'active' : ''}`;
+                indicator.onclick = () => goToSlide(index);
+                indicators.appendChild(indicator);
+            });
+            
+            // Auto-play carousel
+            setInterval(() => {
+                changeSlide(1);
+            }, 5000);
+        }
+
+        // Carousel navigation functions
+        function changeSlide(direction) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.indicator');
+            
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+
+        function goToSlide(index) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicators = document.querySelectorAll('.indicator');
+            
+            slides[currentSlide].classList.remove('active');
+            indicators[currentSlide].classList.remove('active');
+            
+            currentSlide = index;
+            
+            slides[currentSlide].classList.add('active');
+            indicators[currentSlide].classList.add('active');
+        }
+
+        // Load and parse hotels data
+        async function loadHotelsData() {
+            try {
+                const response = await fetch('hotels.txt');
+                const text = await response.text();
+                hotels = parseHotelsData(text);
+                filteredHotels = [...hotels];
+                renderHotels();
+                updateResultsCount();
+                document.getElementById('loadingMessage').style.display = 'none';
+            } catch (error) {
+                console.error('Error loading hotels data:', error);
+                document.getElementById('loadingMessage').innerHTML = '<div class="error">Error loading hotel data. Please try again later.</div>';
+            }
+        }
+
+        // Parse hotels data from text file
+        function parseHotelsData(text) {
+            const hotels = [];
+            const lines = text.split('\n').filter(line => line.trim() && !line.startsWith('//'));
+            
+            let currentHotel = null;
+            let currentSection = '';
+            
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                
+                if (line.includes('(') && line.includes('km from temple') && line.includes(')')) {
+                    // New hotel detected
+                    if (currentHotel) {
+                        hotels.push(currentHotel);
+                    }
+                    
+                    const nameMatch = line.match(/^(.+?)\s*\(\s*(.+?)\s*\)$/);
+                    currentHotel = {
+                        name: nameMatch ? nameMatch[1].trim() : line,
+                        distance: nameMatch ? nameMatch[2] : '',
+                        address: '',
+                        location: '',
+                        website: '',
+                        tariff: [],
+                        contact: []
+                    };
+                    currentSection = '';
+                } else if (currentHotel) {
+                    if (line.startsWith('Location:')) {
+                        currentHotel.location = line.replace('Location:', '').trim();
+                        currentSection = '';
+                    } else if (line.startsWith('Website:')) {
+                        currentHotel.website = line.replace('Website:', '').trim();
+                        currentSection = '';
+                    } else if (line === 'Tariff') {
+                        currentSection = 'tariff';
+                    } else if (line === 'For Booking Contact' || line.startsWith('For Booking Contact')) {
+                        currentSection = 'contact';
+                    } else if (line.startsWith('Mob:')) {
+                        currentHotel.contact.push(line.replace('Mob:', '').trim());
+                    } else if (currentSection === 'tariff' && line !== 'Tariff') {
+                        currentHotel.tariff.push(line);
+                    } else if (currentSection === 'contact' && line.startsWith('Mob:')) {
+                        currentHotel.contact.push(line.replace('Mob:', '').trim());
+                    } else if (!currentHotel.address && !line.startsWith('Location:') && !line.startsWith('Website:') && line !== 'Tariff' && !line.startsWith('For Booking')) {
+                        currentHotel.address = line;
+                    }
+                }
+            }
+            
+            if (currentHotel) {
+                hotels.push(currentHotel);
+            }
+            
+            return hotels;
+        }
+
+        // Render hotels grid
+        function renderHotels() {
+            const grid = document.getElementById('hotelsGrid');
+            const noResults = document.getElementById('noResults');
+            
+            if (filteredHotels.length === 0) {
+                grid.innerHTML = '';
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            grid.innerHTML = filteredHotels.map(hotel => createHotelCard(hotel)).join('');
+            
+            // Add fade-in animation
+            grid.querySelectorAll('.hotel-card').forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('fade-in');
+                }, index * 100);
+            });
+        }
+
+        // Create individual hotel card
+        function createHotelCard(hotel) {
+            const tariffTable = createTariffTable(hotel.tariff);
+            const contactNumbers = hotel.contact.map(num => 
+                `<a href="tel:${num.replace(/\s/g, '')}" class="contact-number">${num}</a>`
+            ).join('');
+
+            return `
+                <div class="hotel-card">
+                    <div class="hotel-header">
+                        <h2 class="hotel-name">${hotel.name}</h2>
+                        <span class="hotel-distance">📍 ${hotel.distance}</span>
+                        <div class="hotel-address">🏢 ${hotel.address}</div>
+                        ${hotel.location ? `<a href="${hotel.location}" target="_blank" class="hotel-location">🗺️ View on Google Maps</a><br>` : ''}
+                        ${hotel.website ? `<a href="${hotel.website}" target="_blank" class="hotel-location">🌐 Visit Website</a>` : ''}
+                    </div>
+                    
+                    <div class="tariff-section">
+                        <h3 class="tariff-title">💰 Room Tariff</h3>
+                        ${tariffTable}
+                    </div>
+                    
+                    <div class="contact-section">
+                        <h4 class="contact-title">📞 Contact Numbers</h4>
+                        <div class="contact-numbers">
+                            ${contactNumbers}
+                        </div>
+                    </div>
+                    
+                    <div class="hotel-actions">
+                        <button class="btn btn-primary" onclick="openPhotoModal('${hotel.name}')">
+                            📷 View Photos
+                        </button>
+                        <a href="${hotel.location}" target="_blank" class="btn btn-secondary">
+                            🧭 Get Directions
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Create tariff table
+        function createTariffTable(tariffData) {
+            if (!tariffData || tariffData.length === 0) {
+                return '<p>Tariff information not available</p>';
+            }
+            
+            let tableRows = '';
+            tariffData.forEach(item => {
+                const parts = item.split('-');
+                if (parts.length >= 2) {
+                    const roomType = parts[0].trim();
+                    const price = parts.slice(1).join('-').trim();
+                    tableRows += `
+                        <tr>
+                            <td>${roomType}</td>
+                            <td>₹${price}</td>
+                        </tr>
+                    `;
+                } else {
+                    tableRows += `
+                        <tr>
+                            <td colspan="2">${item}</td>
+                        </tr>
+                    `;
+                }
+            });
+            
+            return `
+                <table class="tariff-table">
+                    <thead>
+                        <tr>
+                            <th>Room Type</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRows}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        // Open photo modal
+        async function openPhotoModal(hotelName) {
+            const modal = document.getElementById('photoModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const photoGallery = document.getElementById('photoGallery');
+            
+            modalTitle.textContent = `${hotelName} - Photos`;
+            photoGallery.innerHTML = '<div class="loading pulse">Loading photos...</div>';
+            
+            modal.classList.add('active');
+            
+            // Get folder name for this hotel
+            const folderName = hotelPhotoMapping[hotelName];
+            if (!folderName) {
+                photoGallery.innerHTML = '<div class="error">📷 No photos available for this hotel.</div>';
+                return;
+            }
+            
+            try {
+                // Define the actual photo names based on the file structure we have
+                const hotelPhotos = {
+                    'Gayathri-Comforts': ['Untitled.jpeg', 'Untitled1.jpeg', 'Untitled2.jpeg'],
+                    'Guru-Kripa-Lodge': [
+                        'WhatsApp Image 2025-06-02 at 2.05.28 PM (1).jpeg',
+                        'WhatsApp Image 2025-06-02 at 2.05.28 PM.jpeg',
+                        'WhatsApp Image 2025-06-02 at 2.05.29 PM (1).jpeg',
+                        'WhatsApp Image 2025-06-02 at 2.05.29 PM (2).jpeg',
+                        'WhatsApp Image 2025-06-02 at 2.05.29 PM.jpeg',
+                        'WhatsApp Image 2025-06-02 at 2.05.30 PM.jpeg'
+                    ],
+                    'Hotel-Sharon': [
+                        'WhatsApp Image 2025-06-02 at 3.40.55 PM.jpeg',
+                        'WhatsApp Image 2025-06-02 at 3.40.56 PM (1).jpeg',
+                        'WhatsApp Image 2025-06-02 at 3.40.56 PM.jpeg',
+                        'WhatsApp Image 2025-06-02 at 3.40.57 PM (1).jpeg',
+                        'WhatsApp Image 2025-06-02 at 3.40.57 PM.jpeg'
+                    ],
+                    'JK-Towers': [
+                        'WhatsApp Image 2025-06-02 at 3.33.35 PM.jpeg',
+                        'WhatsApp Image 2025-06-02 at 3.33.36 PM (1).jpeg',
+                        'WhatsApp Image 2025-06-02 at 3.33.36 PM.jpeg'
+                    ],
+                    'Nagu-Palace': [
+                        'WhatsApp Image 2025-06-02 at 3.46.44 PM.jpeg',
+                        'WhatsApp Image 2025-06-02 at 3.46.54 PM.jpeg',
+                        'WhatsApp Image 2025-06-02 at 3.46.59 PM.jpeg'
+                    ],
+                    'Paakashala': [
+                        'WhatsApp Image 2025-06-02 at 12.49.41 PM.jpeg',
+                        'WhatsApp Image 2025-06-02 at 12.49.42 PM.jpeg'
+                    ],
+                    'Samudyatha-Inn': [
+                        'WhatsApp Image 2025-06-02 at 3.02.41 PM (1).jpeg',
+                        'WhatsApp Image 2025-06-02 at 3.02.41 PM.jpeg'
+                    ],
+                    'Shivaprasad-Grand': [
+                        'WhatsApp Image 2025-06-02 at 3.09.30 PM (1).jpeg',
+                        'WhatsApp Image 2025-06-02 at 3.09.30 PM.jpeg',
+                        'WhatsApp Image 2025-06-02 at 3.09.31 PM.jpeg'
+                    ],
+                    'Shreyas-Inn': [
+                        'WhatsApp Image 2025-06-02 at 3.16.41 PM (1).jpeg',
+                        'WhatsApp Image 2025-06-02 at 3.16.41 PM.jpeg'
+                    ],
+                    'Shri-Krishna-lodge': [
+                        'WhatsApp Image 2025-06-02 at 12.08.12 PM.jpeg',
+                        'WhatsApp Image 2025-06-02 at 12.08.13 PM.jpeg',
+                        'WhatsApp Image 2025-06-02 at 12.08.15 PM.jpeg',
+                        'WhatsApp Image 2025-06-02 at 12.08.16 PM.jpeg',
+                        'WhatsApp Image 2025-06-02 at 12.08.18 PM.jpeg',
+                        'WhatsApp Image 2025-06-02 at 12.08.19 PM (1).jpeg',
+                        'WhatsApp Image 2025-06-02 at 12.08.19 PM.jpeg'
+                    ],
+                    'White-House-Inn': ['Untitled.jpeg']
+                };
+                
+                const photos = hotelPhotos[folderName] || [];
+                
+                if (photos.length === 0) {
+                    photoGallery.innerHTML = '<div class="error">📷 No photos available for this hotel at the moment.</div>';
+                    return;
+                }
+                
+                let photosHTML = '';
+                let loadedPhotos = 0;
+                
+                photos.forEach((photo, index) => {
+                    const photoPath = `photos/${folderName}/${photo}`;
+                    photosHTML += `
+                        <div class="photo-item">
+                            <img src="${photoPath}" alt="${hotelName} Photo ${index + 1}" 
+                                 onclick="openPhotoViewer('${photoPath}')"
+                                 onload="this.style.opacity='1'"
+                                 onerror="this.parentElement.style.display='none'">
+                        </div>
+                    `;
+                });
+                
+                photoGallery.innerHTML = photosHTML;
+                
+                // If no photos load successfully
+                setTimeout(() => {
+                    const visiblePhotos = photoGallery.querySelectorAll('.photo-item:not([style*="display: none"])');
+                    if (visiblePhotos.length === 0) {
+                        photoGallery.innerHTML = '<div class="error">📷 Photos are currently unavailable for this hotel.</div>';
+                    }
+                }, 3000);
+                
+            } catch (error) {
+                console.error('Error loading photos:', error);
+                photoGallery.innerHTML = '<div class="error">❌ Error loading photos. Please try again later.</div>';
+            }
+        }
+
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('photoModal');
+            modal.classList.remove('active');
+        }
+
+        // Open photo viewer (could be enhanced with a lightbox)
+        function openPhotoViewer(photoPath) {
+            window.open(photoPath, '_blank');
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            const searchInput = document.getElementById('searchInput');
+            const distanceFilter = document.getElementById('distanceFilter');
+            const sortBy = document.getElementById('sortBy');
+            
+            searchInput.addEventListener('input', filterAndSortHotels);
+            distanceFilter.addEventListener('change', filterAndSortHotels);
+            sortBy.addEventListener('change', filterAndSortHotels);
+            
+            // Close modal when clicking outside
+            document.getElementById('photoModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
+            });
+        }
+
+        // Filter and sort hotels
+        function filterAndSortHotels() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const distanceFilter = document.getElementById('distanceFilter').value;
+            const sortBy = document.getElementById('sortBy').value;
+            
+            // Filter hotels
+            filteredHotels = hotels.filter(hotel => {
+                const matchesSearch = hotel.name.toLowerCase().includes(searchTerm) || 
+                                    hotel.address.toLowerCase().includes(searchTerm);
+                
+                let matchesDistance = true;
+                if (distanceFilter) {
+                    const hotelDistance = parseFloat(hotel.distance.match(/(\d+(?:\.\d+)?)/)?.[1] || 0);
+                    matchesDistance = hotelDistance <= parseFloat(distanceFilter);
+                }
+                
+                return matchesSearch && matchesDistance;
+            });
+            
+            // Sort hotels
+            filteredHotels.sort((a, b) => {
+                switch (sortBy) {
+                    case 'distance':
+                        const distanceA = parseFloat(a.distance.match(/(\d+(?:\.\d+)?)/)?.[1] || 0);
+                        const distanceB = parseFloat(b.distance.match(/(\d+(?:\.\d+)?)/)?.[1] || 0);
+                        return distanceA - distanceB;
+                    
+                    case 'price':
+                        const priceA = getMinPrice(a.tariff);
+                        const priceB = getMinPrice(b.tariff);
+                        return priceA - priceB;
+                    
+                    default: // name
+                        return a.name.localeCompare(b.name);
+                }
+            });
+            
+            renderHotels();
+            updateResultsCount();
+        }
+
+        // Get minimum price from tariff
+        function getMinPrice(tariff) {
+            if (!tariff || tariff.length === 0) return Infinity;
+            
+            let minPrice = Infinity;
+            tariff.forEach(item => {
+                const priceMatch = item.match(/(\d+)/);
+                if (priceMatch) {
+                    const price = parseInt(priceMatch[1]);
+                    if (price < minPrice) {
+                        minPrice = price;
+                    }
+                }
+            });
+            
+            return minPrice === Infinity ? 0 : minPrice;
+        }
+
+        // Update results count
+        function updateResultsCount() {
+            const resultsCount = document.getElementById('resultsCount');
+            const total = hotels.length;
+            const filtered = filteredHotels.length;
+            
+            if (filtered === total) {
+                resultsCount.textContent = `Showing all ${total} hotels`;
+            } else {
+                resultsCount.textContent = `Showing ${filtered} of ${total} hotels`;
+            }
+        }
+
+        // Error handling for images
+        document.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.target.style.display = 'none';
+                console.warn('Image failed to load:', e.target.src);
+            }
+        }, true);
+
+        // Service worker for offline functionality (optional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                // You can add service worker registration here for offline functionality
+            });
+        }
+    </script>
+</body>
+</html>
