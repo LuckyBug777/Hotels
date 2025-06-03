@@ -78,13 +78,13 @@
         .temple-carousel {
             margin: 0.5rem auto 0.8rem auto;
             max-width: 100%;
-            width: 95%;
+            width: 60%;
             position: relative;
             border-radius: var(--border-radius);
             overflow: hidden;
             box-shadow: var(--shadow);
-            height: 850px;
-            background: #f0f0f0;
+            height: 600px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         }
 
         .carousel-container {
@@ -92,7 +92,10 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background: #f0f0f0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .carousel-slide {
@@ -231,18 +234,30 @@
             transition: var(--transition);
             position: relative;
             overflow: hidden;
-            height: fit-content;
+            height: 280px;
+            display: flex;
+            flex-direction: column;
         }
 
         .hotel-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            height: auto;
+            min-height: 280px;
+            z-index: 10;
+        }
+
+        .hotel-card.expanded {
+            height: auto;
+            min-height: 280px;
+            z-index: 10;
         }
 
         .hotel-header {
             margin-bottom: 0.6rem;
             border-bottom: 1px solid #f0f0f0;
             padding-bottom: 0.6rem;
+            flex-shrink: 0;
         }
 
         .hotel-name {
@@ -288,6 +303,46 @@
         /* Tariff Table */
         .tariff-section {
             margin: 0.6rem 0;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .hotel-card:not(:hover):not(.expanded) .tariff-section {
+            max-height: 80px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hotel-card:not(:hover):not(.expanded) .tariff-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background: linear-gradient(transparent, white);
+            pointer-events: none;
+        }
+
+        .hotel-card::after {
+            content: '';
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            opacity: 0;
+            transition: var(--transition);
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .hotel-card:not(:hover):not(.expanded)::after {
+            opacity: 1;
         }
 
         .tariff-title {
@@ -337,6 +392,11 @@
             padding: 0.8rem;
             background: var(--light-bg);
             border-radius: var(--border-radius);
+            flex-shrink: 0;
+        }
+
+        .hotel-card:not(:hover):not(.expanded) .contact-section {
+            display: none;
         }
 
         .contact-title {
@@ -382,6 +442,11 @@
             display: flex;
             gap: 0.5rem;
             margin-top: 0.6rem;
+            flex-shrink: 0;
+        }
+
+        .hotel-card:not(:hover):not(.expanded) .hotel-actions {
+            display: none;
         }
 
         .btn {
@@ -568,8 +633,8 @@
 
             .temple-carousel {
                 margin: 0.5rem auto 0.6rem auto;
-                width: 98%;
-                height: 730px;
+                width: 80%;
+                height: 450px;
             }
 
             .search-section {
@@ -594,6 +659,19 @@
 
             .hotel-card {
                 padding: 0.8rem;
+                height: 250px;
+            }
+
+            .hotel-card:hover,
+            .hotel-card.expanded {
+                height: auto;
+                min-height: 250px;
+            }
+
+            .hotel-card::after {
+                content: '👆 Tap for details';
+                font-size: 0.65rem;
+                bottom: 8px;
             }
 
             .hotel-name {
@@ -654,12 +732,26 @@
             }
             
             .temple-carousel {
-                height: 670px;
+                height: 400px;
                 margin: 0.4rem auto 0.5rem auto;
+                width: 85%;
             }
             
             .hotel-card {
                 padding: 0.6rem;
+                height: 220px;
+            }
+            
+            .hotel-card:hover,
+            .hotel-card.expanded {
+                height: auto;
+                min-height: 220px;
+            }
+
+            .hotel-card::after {
+                font-size: 0.6rem;
+                bottom: 6px;
+                padding: 0.2rem 0.6rem;
             }
             
             .tariff-table th,
@@ -686,8 +778,9 @@
             }
             
             .temple-carousel {
-                max-width: 1000px;
-                height: 900px;
+                max-width: 800px;
+                height: 650px;
+                width: 55%;
             }
         }
 
@@ -749,8 +842,9 @@
     <!-- Header Section -->
     <header class="header">
         <div class="header-content">
-            <h1>Hotels Near Temple</h1>
-            <p>Find the perfect accommodation for your spiritual journey</p>
+            <h1>Shri Pattabhi Ramachandra Temple Koteshwar</h1>
+            <p>Vishwavasu Nama Samvatsara Chaturmasa Vrita of Shri Kashi Mathadhipathi, His Holiness Shrimad Samyamindra Thirtha Swamiji</p>
+            <h2 style="margin-top: 1rem; font-size: 1.8rem; color: #fff;">Rooms & Accommodation</h2>
             
             <!-- Temple Photos Carousel -->
             <div class="temple-carousel">
@@ -773,8 +867,10 @@
             <select id="distanceFilter" class="filter-select">
                 <option value="">All Distances</option>
                 <option value="3">Within 3km</option>
+                <option value="3.5">Within 3.5km</option>
                 <option value="4">Within 4km</option>
                 <option value="5">Within 5km</option>
+                <option value="6">Within 6km</option>
             </select>
             <select id="sortBy" class="filter-select">
                 <option value="name">Sort by Name</option>
@@ -833,7 +929,9 @@
             'Shreyas Inn': 'Shreyas-Inn',
             'JK Towers': 'JK-Towers',
             'Hotel Sharon': 'Hotel-Sharon',
-            'Nagu Palace': 'Nagu-Palace'
+            'Nagu Palace': 'Nagu-Palace',
+            'Uva Manish': 'Uva-Manish',
+            'Savi Sagar Boarding and Lodging': null // No photos available
         };
 
         // Initialize the application
@@ -859,7 +957,7 @@
                 img.alt = `Temple Photo ${index + 1}`;
                 img.style.width = '100%';
                 img.style.height = '100%';
-                img.style.objectFit = 'cover';
+                img.style.objectFit = 'contain';
                 img.style.display = 'block';
                 
                 img.onerror = function() {
@@ -920,6 +1018,14 @@
                 const response = await fetch('hotels.txt');
                 const text = await response.text();
                 hotels = parseHotelsData(text);
+                
+                // Sort hotels with Paakashala at the end
+                hotels.sort((a, b) => {
+                    if (a.name === 'Paakashala') return 1;
+                    if (b.name === 'Paakashala') return -1;
+                    return a.name.localeCompare(b.name);
+                });
+                
                 filteredHotels = [...hotels];
                 renderHotels();
                 updateResultsCount();
@@ -941,7 +1047,7 @@
             for (let i = 0; i < lines.length; i++) {
                 const line = lines[i].trim();
                 
-                if (line.includes('(') && line.includes('km from temple') && line.includes(')')) {
+                if (line.includes('(') && (line.includes('km from temple') || line.includes('km from Temple')) && line.includes(')')) {
                     // New hotel detected
                     if (currentHotel) {
                         hotels.push(currentHotel);
@@ -1002,11 +1108,29 @@
             noResults.style.display = 'none';
             grid.innerHTML = filteredHotels.map(hotel => createHotelCard(hotel)).join('');
             
-            // Add fade-in animation
+            // Add fade-in animation and click handlers
             grid.querySelectorAll('.hotel-card').forEach((card, index) => {
                 setTimeout(() => {
                     card.classList.add('fade-in');
                 }, index * 100);
+                
+                // Add click handler for card expansion
+                card.addEventListener('click', function(e) {
+                    // Don't expand if clicking on buttons or links
+                    if (e.target.closest('.hotel-actions') || e.target.closest('a') || e.target.closest('button')) {
+                        return;
+                    }
+                    
+                    // Remove expanded class from all other cards
+                    grid.querySelectorAll('.hotel-card').forEach(otherCard => {
+                        if (otherCard !== card) {
+                            otherCard.classList.remove('expanded');
+                        }
+                    });
+                    
+                    // Toggle expanded class on clicked card
+                    card.classList.toggle('expanded');
+                });
             });
         }
 
@@ -1166,7 +1290,12 @@
                         'WhatsApp Image 2025-06-02 at 12.08.19 PM (1).jpeg',
                         'WhatsApp Image 2025-06-02 at 12.08.19 PM.jpeg'
                     ],
-                    'White-House-Inn': ['Untitled.jpeg']
+                    'White-House-Inn': ['Untitled.jpeg'],
+                    'Uva-Manish': [
+                        'WhatsApp Image 2025-06-03 at 11.02.33 AM.jpeg',
+                        'WhatsApp Image 2025-06-03 at 11.02.34 AM (1).jpeg',
+                        'WhatsApp Image 2025-06-03 at 11.02.34 AM.jpeg'
+                    ]
                 };
                 
                 const photos = hotelPhotos[folderName] || [];
@@ -1265,6 +1394,10 @@
             
             // Sort hotels
             filteredHotels.sort((a, b) => {
+                // Always put Paakashala at the end
+                if (a.name === 'Paakashala') return 1;
+                if (b.name === 'Paakashala') return -1;
+                
                 switch (sortBy) {
                     case 'distance':
                         const distanceA = parseFloat(a.distance.match(/(\d+(?:\.\d+)?)/)?.[1] || 0);
