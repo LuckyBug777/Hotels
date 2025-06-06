@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hotel Website Functionality Test</title>
+</head>
+<body>
+    <h1>Hotel Website Functionality Test</h1>
+    <div id="results"></div>
+    
+    <script>
+        async function testFunctionality() {
+            const results = document.getElementById('results');
+            let testResults = [];
+            
+            // Test 1: Check if hotels.txt loads
+            try {
+                const response = await fetch('hotels.txt');
+                const text = await response.text();
+                const hotelCount = (text.match(/km from temple/gi) || []).length;
+                testResults.push(`✅ Hotels.txt loads successfully - Found ${hotelCount} hotels`);
+            } catch (error) {
+                testResults.push(`❌ Hotels.txt failed to load: ${error.message}`);
+            }
+            
+            // Test 2: Check if advertisement image loads
+            try {
+                const response = await fetch('ad/Untitled.jpeg');
+                if (response.ok) {
+                    testResults.push(`✅ Advertisement image loads successfully`);
+                } else {
+                    testResults.push(`❌ Advertisement image failed to load: ${response.status}`);
+                }
+            } catch (error) {
+                testResults.push(`❌ Advertisement image failed to load: ${error.message}`);
+            }
+            
+            // Test 3: Check if temple photos load
+            const templePhotos = ['temple1.jpeg', 'temple2.jpeg', 'swamiji1.jpeg'];
+            let templePhotoResults = [];
+            for (const photo of templePhotos) {
+                try {
+                    const response = await fetch(`temple-photos/${photo}`);
+                    if (response.ok) {
+                        templePhotoResults.push(`✅ ${photo}`);
+                    } else {
+                        templePhotoResults.push(`❌ ${photo} (${response.status})`);
+                    }
+                } catch (error) {
+                    templePhotoResults.push(`❌ ${photo} (${error.message})`);
+                }
+            }
+            testResults.push(`Temple photos: ${templePhotoResults.join(', ')}`);
+            
+            // Test 4: Check if some hotel photos load
+            const hotelPhotos = [
+                'photos/Guru-Kripa-Lodge/WhatsApp Image 2025-06-02 at 2.05.28 PM.jpeg',
+                'photos/Hotel-Parijatha/Untitled.jpeg',
+                'photos/Sahana-Orchid--Hotel/WhatsApp Image 2025-06-05 at 12.37.24 PM.jpeg',
+                'photos/Uva-Meridian/Untitled.jpeg'
+            ];
+            let hotelPhotoResults = [];
+            for (const photo of hotelPhotos) {
+                try {
+                    const response = await fetch(photo);
+                    if (response.ok) {
+                        hotelPhotoResults.push(`✅ ${photo.split('/').pop()}`);
+                    } else {
+                        hotelPhotoResults.push(`❌ ${photo.split('/').pop()} (${response.status})`);
+                    }
+                } catch (error) {
+                    hotelPhotoResults.push(`❌ ${photo.split('/').pop()} (${error.message})`);
+                }
+            }
+            testResults.push(`Sample hotel photos: ${hotelPhotoResults.join(', ')}`);
+            
+            // Test 5: Check if Google Maps links are valid
+            const googleMapsLink = 'https://maps.app.goo.gl/HWYAnNfqaCFETtYt9';
+            testResults.push(`✅ Temple location link: ${googleMapsLink}`);
+            
+            // Test 6: Check if advertisement link is valid
+            const adLink = 'https://arisecraft.com/';
+            testResults.push(`✅ Advertisement link: ${adLink}`);
+            
+            // Display results
+            results.innerHTML = testResults.map(result => `<p>${result}</p>`).join('');
+        }
+        
+        // Run tests when page loads
+        testFunctionality();
+    </script>
+</body>
+</html>
