@@ -846,7 +846,6 @@
             <p>Vishwavasu Nama Samvatsara Chaturmasa Vrita of Shri Kashi Mathadhipathi, His Holiness Shrimad Samyamindra Thirtha Swamiji</p>
             <h2 style="margin-top: 1rem; font-size: 1.8rem; color: #fff;">Rooms & Accommodation</h2>
             
-            <!-- Temple Photos Carousel -->
             <div class="temple-carousel">
                 <div class="carousel-container" id="templeCarousel">
                     <!-- Temple photos will be loaded here -->
@@ -857,25 +856,35 @@
                     <!-- Indicators will be generated here -->
                 </div>
             </div>
+            
+            <!-- Temple Location Button -->
+            <div style="text-align: center; margin-top: 1rem;">
+                <a href="https://maps.app.goo.gl/HWYAnNfqaCFETtYt9" target="_blank" 
+                   style="display: inline-block; background: rgba(255,255,255,0.9); color: #ff6b35; 
+                          padding: 0.8rem 1.5rem; border-radius: 25px; text-decoration: none; 
+                          font-weight: 600; font-size: 1rem; box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                          transition: all 0.3s ease; border: 2px solid white;"
+                   onmouseover="this.style.background='white'; this.style.transform='translateY(-2px)'"
+                   onmouseout="this.style.background='rgba(255,255,255,0.9)'; this.style.transform='translateY(0)'">
+                    🗺️ View Temple Location on Google Maps
+                </a>
+            </div>
         </div>
     </header>
 
     <!-- Search and Filter Section -->
     <section class="search-section">
         <div class="search-controls">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search hotels by name or location...">
             <select id="distanceFilter" class="filter-select">
                 <option value="">All Distances</option>
                 <option value="3">Within 3km</option>
-                <option value="3.5">Within 3.5km</option>
-                <option value="4">Within 4km</option>
                 <option value="5">Within 5km</option>
                 <option value="6">Within 6km</option>
             </select>
             <select id="sortBy" class="filter-select">
-                <option value="name">Sort by Name</option>
                 <option value="distance">Sort by Distance</option>
                 <option value="price">Sort by Price</option>
+                <option value="name">Sort by Name</option>
             </select>
         </div>
         <div id="resultsCount" class="results-count"></div>
@@ -918,20 +927,21 @@
 
         // Hotel data mapping for photo folders
         const hotelPhotoMapping = {
+            'Gurukripa': 'Guru-Kripa-Lodge',
+            'Uva Meridian': 'Uva-Meridian',
             'Gayathri Comforts': 'Gayathri-Comforts',
             'Shri Krishna lodge': 'Shri-Krishna-lodge',
             'Vishwas Lodge': 'Vishwas Lodge',
+            'Sahana Orchid Hotel': 'Sahana-Orchid--Hotel',
             'Paakashala': 'Paakashala',
-            'Guru Kripa Lodge': 'Guru-Kripa-Lodge',
+            'Hotel Parijatha': 'Hotel-Parijatha',
             'White House Inn': 'White-House-Inn',
+            'V Arcade': null, // No photos available
             'Samudyatha Inn & Suites': 'Samudyatha-Inn',
-            'Shivaprasad Grand': 'Shivaprasad-Grand',
-            'Shreyas Inn': 'Shreyas-Inn',
-            'JK Towers': 'JK-Towers',
             'Hotel Sharon': 'Hotel-Sharon',
-            'Nagu Palace': 'Nagu-Palace',
             'Uva Manish': 'Uva-Manish',
-            'Savi Sagar Boarding and Lodging': null // No photos available
+            'Subbalaxmi Lodge': null, // No photos available
+            'Shreyas Inn': 'Shreyas-Inn'
         };
 
         // Initialize the application
@@ -1243,6 +1253,7 @@
                         'WhatsApp Image 2025-06-02 at 2.05.29 PM.jpeg',
                         'WhatsApp Image 2025-06-02 at 2.05.30 PM.jpeg'
                     ],
+                    'Hotel-Parijatha': ['Untitled.jpeg', 'Untitled1.jpeg'],
                     'Hotel-Sharon': [
                         'WhatsApp Image 2025-06-02 at 3.40.55 PM.jpeg',
                         'WhatsApp Image 2025-06-02 at 3.40.56 PM (1).jpeg',
@@ -1250,28 +1261,18 @@
                         'WhatsApp Image 2025-06-02 at 3.40.57 PM (1).jpeg',
                         'WhatsApp Image 2025-06-02 at 3.40.57 PM.jpeg'
                     ],
-                    'JK-Towers': [
-                        'WhatsApp Image 2025-06-02 at 3.33.35 PM.jpeg',
-                        'WhatsApp Image 2025-06-02 at 3.33.36 PM (1).jpeg',
-                        'WhatsApp Image 2025-06-02 at 3.33.36 PM.jpeg'
-                    ],
-                    'Nagu-Palace': [
-                        'WhatsApp Image 2025-06-02 at 3.46.44 PM.jpeg',
-                        'WhatsApp Image 2025-06-02 at 3.46.54 PM.jpeg',
-                        'WhatsApp Image 2025-06-02 at 3.46.59 PM.jpeg'
-                    ],
                     'Paakashala': [
                         'WhatsApp Image 2025-06-02 at 12.49.41 PM.jpeg',
                         'WhatsApp Image 2025-06-02 at 12.49.42 PM.jpeg'
                     ],
+                    'Sahana-Orchid--Hotel': [
+                        'WhatsApp Image 2025-06-05 at 12.37.24 PM (1).jpeg',
+                        'WhatsApp Image 2025-06-05 at 12.37.24 PM.jpeg',
+                        'WhatsApp Image 2025-06-05 at 12.37.25 PM.jpeg'
+                    ],
                     'Samudyatha-Inn': [
                         'WhatsApp Image 2025-06-02 at 3.02.41 PM (1).jpeg',
                         'WhatsApp Image 2025-06-02 at 3.02.41 PM.jpeg'
-                    ],
-                    'Shivaprasad-Grand': [
-                        'WhatsApp Image 2025-06-02 at 3.09.30 PM (1).jpeg',
-                        'WhatsApp Image 2025-06-02 at 3.09.30 PM.jpeg',
-                        'WhatsApp Image 2025-06-02 at 3.09.31 PM.jpeg'
                     ],
                     'Shreyas-Inn': [
                         'WhatsApp Image 2025-06-02 at 3.16.41 PM (1).jpeg',
@@ -1291,7 +1292,9 @@
                         'WhatsApp Image 2025-06-03 at 11.02.33 AM.jpeg',
                         'WhatsApp Image 2025-06-03 at 11.02.34 AM (1).jpeg',
                         'WhatsApp Image 2025-06-03 at 11.02.34 AM.jpeg'
-                    ]
+                    ],
+                    'Uva-Meridian': ['Untitled.jpeg'],
+                    'Vishwas Lodge': [] // Add photos if available
                 };
                 
                 const photos = hotelPhotos[folderName] || [];
@@ -1345,11 +1348,9 @@
 
         // Setup event listeners
         function setupEventListeners() {
-            const searchInput = document.getElementById('searchInput');
             const distanceFilter = document.getElementById('distanceFilter');
             const sortBy = document.getElementById('sortBy');
             
-            searchInput.addEventListener('input', filterAndSortHotels);
             distanceFilter.addEventListener('change', filterAndSortHotels);
             sortBy.addEventListener('change', filterAndSortHotels);
             
@@ -1370,22 +1371,18 @@
 
         // Filter and sort hotels
         function filterAndSortHotels() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
             const distanceFilter = document.getElementById('distanceFilter').value;
             const sortBy = document.getElementById('sortBy').value;
             
             // Filter hotels
             filteredHotels = hotels.filter(hotel => {
-                const matchesSearch = hotel.name.toLowerCase().includes(searchTerm) || 
-                                    hotel.address.toLowerCase().includes(searchTerm);
-                
                 let matchesDistance = true;
                 if (distanceFilter) {
                     const hotelDistance = parseFloat(hotel.distance.match(/(\d+(?:\.\d+)?)/)?.[1] || 0);
                     matchesDistance = hotelDistance <= parseFloat(distanceFilter);
                 }
                 
-                return matchesSearch && matchesDistance;
+                return matchesDistance;
             });
             
             // Sort hotels
@@ -1456,5 +1453,19 @@
             });
         }
     </script>
+
+    <!-- Advertisement Section -->
+    <footer style="text-align: center; margin: 2rem auto; max-width: 1200px; padding: 1rem; border-top: 1px solid #ddd;">
+        <div style="margin-bottom: 1rem; color: #666; font-size: 0.9rem;">
+            <p>Sponsored Advertisement</p>
+        </div>
+        <a href="https://arisecraft.com/" target="_blank" style="display: inline-block; transition: transform 0.3s ease;">
+            <img src="ad/Untitled.jpeg" alt="Arisecraft Advertisement" 
+                 style="max-width: 300px; height: auto; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                        cursor: pointer; transition: all 0.3s ease;"
+                 onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 8px 25px rgba(0,0,0,0.2)'"
+                 onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(0,0,0,0.1)'">
+        </a>
+    </footer>
 </body>
 </html>
